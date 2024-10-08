@@ -3,22 +3,11 @@
   "configurations": [
     {
       "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
+      "type": "lldb",
       "request": "launch",
       "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/trungelung/42Lea/so_long/minilibx-linux",
-      "program": "/home/trungelung/42Lea/so_long/minilibx-linux/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
+      "cwd": "/Users/trungnguyen/Documents/42Lea/SoLong/so_long",
+      "program": "/Users/trungnguyen/Documents/42Lea/SoLong/so_long/build/Debug/outDebug"
     }
   ]
 }
