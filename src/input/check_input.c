@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:58:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/09/23 14:26:45 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:59:12 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ char	**get_map(char *file)
 	return (map);
 }
 
+// ft_putstr_fd("Invalid input: ", 2);
 void	error_exit(char **map, char error_code)
 {
 	ft_putstr_fd("Error\n", 2);
-	// ft_putstr_fd("Invalid input: ", 2);
 	if (error_code == 'r')
 		ft_putstr_fd("'Map must be rectangular'", 2);
 	else if (error_code == 'i')

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:36:57 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/09/23 14:21:39 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 01:26:14 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,10 @@ t_queue	*get_path(char **map)
 	current = q;
 	while (current != NULL)
 	{
+		if (current -> c == 'E')
+			current = current -> next;
 		neighbor = get_surrogates(map, current);
 		check_surrogates(&q, neighbor);
-		current -> v = 'Y';
 		current = current -> next;
 	}
 	return (q);

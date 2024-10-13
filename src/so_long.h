@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/13 17:12:39 by lhagemos          #+#    #+#             */
+/*   Updated: 2024/10/14 01:24:45 by lhagemos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
 # ifndef ANIMATION_FRAMES
-# define ANIMATION_FRAMES 10
+#  define ANIMATION_FRAMES 15
 # endif
 
 # include <unistd.h>
@@ -19,17 +31,17 @@
 
 typedef struct s_position
 {
-	int x;
-	int y;
-	char c;
-} t_position;
+	int		x;
+	int		y;
+	char	c;
+}	t_position;
 
 typedef struct s_surrogates
 {
-	t_position s1;
-	t_position s2;
-	t_position s3;
-	t_position s4;
+	t_position	s1;
+	t_position	s2;
+	t_position	s3;
+	t_position	s4;
 }	t_surrogates;
 
 typedef struct s_queue
@@ -38,10 +50,8 @@ typedef struct s_queue
 	int				y;
 	int				x;
 	int				c;
-	char			v;
 	struct s_queue	*next;
 }	t_queue;
-
 typedef struct s_vector
 {
 	int	x;
@@ -59,8 +69,8 @@ typedef struct s_image
 	void		*ptr;
 	t_vector	size;
 	char		*pixels;
-	int			bits_per_pixel;
-	int			line_size;
+	int			bpp; //bits_per_pixel
+	int			l_size; //line_size
 	int			endian;
 }	t_image;
 
@@ -72,8 +82,9 @@ typedef struct s_sprite
 	t_image	monke;
 	t_image	exit;
 	t_image	end;
+	t_image	end_up;
+	t_image	mv;
 }	t_sprite;
-
 typedef struct s_program
 {
 	void		*mlx;
@@ -111,5 +122,11 @@ char		check_next(t_program *p, char key);
 int			event(int key, t_program *p);
 void		call_event(t_program p);
 void		generate_map(t_program p);
+int			ft_update(t_program *p);
+char		check_next(t_program *p, char key);
+void		apply_w(t_program *p, char next_field);
+void		apply_a(t_program *p, char next_field);
+void		apply_s(t_program *p, char next_field);
+void		apply_d(t_program *p, char next_field);
 
 #endif

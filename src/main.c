@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:42:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/08 17:19:24 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 01:25:52 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,37 +49,6 @@ t_vector	get_mapsize(char **map)
 	return (map_size);
 }
 
-void	generate_map(t_program p)
-{
-	int	x;
-	int	y;
-	int	w;
-	int	h;
-
-	y = 0;
-	while (p.map[y])
-	{
-		x = 0;
-		while (p.map[y][x])
-		{
-			w = x * 50;
-			h = y * 50;
-			if (p.map[y][x] == '1')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.wall.ptr, w, h);
-			if (p.map[y][x] != '1')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.space.ptr, w, h);
-			if (p.map[y][x] == 'E')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.exit.ptr, w, h);
-			if (p.map[y][x] == 'C')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.coin.ptr, w, h);
-			if (p.map[y][x] == 'P')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.monke.ptr, w, h);
-			x++;
-		}
-		y++;
-	}
-}
-
 t_program	collect_data(t_program p, char **map)
 {
 	p.mlx = mlx_init();
@@ -87,11 +56,21 @@ t_program	collect_data(t_program p, char **map)
 	p.map = map;
 	p.counter = 0;
 	p.win = ft_new_window(p, "So Long");
-	p.sp.wall = ft_new_sprite(p.mlx, "src/block.xpm");
-	p.sp.space = ft_new_sprite(p.mlx, "src/space.xpm");
-	p.sp.exit = ft_new_sprite(p.mlx, "src/rocket.xpm");
-	p.sp.coin = ft_new_sprite(p.mlx, "src/coin.xpm");
-	p.sp.monke = ft_new_sprite(p.mlx, "src/monke.xpm");
+	p.sp.wall = ft_new_sprite(p.mlx, "src/textures/block.xpm");
+	p.sp.space = ft_new_sprite(p.mlx, "src/textures/space.xpm");
+	p.sp.exit = ft_new_sprite(p.mlx, "src/textures/rocket.xpm");
+	p.sp.coin = ft_new_sprite(p.mlx, "src/textures/coin.xpm");
+	p.sp.monke = ft_new_sprite(p.mlx, "src/textures/monke.xpm");
+	if (p.win_size.x < 350 || p.win_size.y < 300)
+	{
+		p.sp.end_up = ft_new_sprite(p.mlx, "src/textures/end_up_mini.xpm");
+		p.sp.mv = ft_new_sprite(p.mlx, "src/textures/end_down_mini.xpm");
+	}
+	else
+	{
+		p.sp.end_up = ft_new_sprite(p.mlx, "src/textures/end_up.xpm");
+		p.sp.mv = ft_new_sprite(p.mlx, "src/textures/end_down.xpm");
+	}
 	return (p);
 }
 
@@ -101,13 +80,14 @@ t_program	collect_data(t_program p, char **map)
 	return (0);
 } */
 
+// mlx_key_hook(pro.win.ptr, get_keycode, NULL); -> print the keycode
 int	main(int argc, char **argv)
 {
-	char **map;
-	int	fd;
-	t_program pro;
-	int x;
-	int y;
+	char		**map;
+	int			fd;
+	t_program	pro;
+	int			x;
+	int			y;
 
 	if (argc != 2)
 		return (0);
@@ -119,17 +99,14 @@ int	main(int argc, char **argv)
 	map = get_map(argv[1]);
 	check_input(map);
 	pro = collect_data(pro, map);
-	/* if (window_size.x * 50 > 1920 || window_size.y > 1080)
-	{
-		
-	} */
 	generate_map(pro);
-	// mlx_key_hook(pro.win.ptr, get_keycode, NULL); -> print the keycode
 	call_event(pro);
 	mlx_loop(pro.mlx);
 	free_splits(map);
 	return (0);
 }
 
-
-
+/* if (window_size.x * 50 > 1920 || window_size.y > 1080)
+	{
+		
+	} */

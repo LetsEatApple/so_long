@@ -10,8 +10,9 @@ src/input/check_input.c \
 src/input/check_map.c \
 src/input/check_path.c \
 src/input/check_utils.c \
-src/game/create_window.c \
-src/game/events.c
+src/game/events.c \
+src/game/graphics.c \
+src/game/moves.c
 
 OBJ = $(SRC:.c=.o)
 

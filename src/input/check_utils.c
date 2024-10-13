@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:38:39 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/09/23 14:23:39 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 01:24:16 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ t_queue	*newnode(int y, int x, char c)
 	new -> y = y;
 	new -> x = x;
 	new -> c = c;
-	new -> v = 'N';
 	new -> next = NULL;
 	return (new);
 }

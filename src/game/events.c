@@ -6,169 +6,49 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:00:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/08 17:21:51 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:23:12 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-char	check_next(t_program *p, char key)
+int	ft_update(t_program *p)
 {
-	t_position	player;
-
-	player = get_position(p->map, 'P');
-	if (key == 'W')
-		return (p->map[player.y -1][player.x]);
-	if (key == 'A')
-		return (p->map[player.y][player.x -1]);
-	if (key == 'S')
-		return (p->map[player.y +1][player.x]);
-	if (key == 'D')
-		return (p->map[player.y][player.x +1]);
-	return ('N');
-}
-
-
-
-void	apply_w(t_program *p, char next_field)
-{
-	t_position	player;
-	int			c_left;
-
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
-	if (next_field != '1' && next_field != 'E')
-	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y -1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
-	}
-	if (next_field == 'E' && c_left == 0)
-	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y -1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
-	}
-}
-
-void	apply_a(t_program *p, char next_field)
-{
-	t_position	player;
-	int			c_left;
-
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
-	if (next_field != '1' && next_field != 'E')
-	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x -1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
-	}
-	if (next_field == 'E' && c_left == 0)
-	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x -1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
-	}
-}
-
-void	apply_s(t_program *p, char next_field)
-{
-	t_position	player;
-	int			c_left;
-
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
-	if (next_field != '1' && next_field != 'E')
-	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y +1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
-	}
-	if (next_field == 'E' && c_left == 0)
-	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y +1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
-	}
-}
-
-void	apply_d(t_program *p, char next_field)
-{
-	t_position	player;
-	int			c_left;
+	static int	frame;
 	t_image		black;
-	t_image		end;
+	t_vector	pos;
 
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
-	if (next_field != '1' && next_field != 'E')
+	black = ft_new_image(p->mlx, p->win_size.x, p->win_size.y);
+	pos.x = (p->win_size.x / 2) - (p->sp.end_up.size.x / 2);
+	pos.y = (p->win_size.y / 2) - (p->sp.end_up.size.y / 2);
+	mlx_put_image_to_window(p->mlx, p->win.ptr, black.ptr, 0, 0);
+	frame++;
+	mlx_put_image_to_window(p->mlx, p->win.ptr, p->sp.end_up.ptr, pos.x, pos.y);
+	if (frame >= ANIMATION_FRAMES)
 	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x +1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		mlx_put_image_to_window(p->mlx, p->win.ptr, p->sp.mv.ptr, pos.x, pos.y);
+		frame = 0;
 	}
-	if (next_field == 'E' && c_left == 0)
-	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x +1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
-		black = ft_new_image(p->mlx, p->win_size.x, p->win_size.y);
-		mlx_put_image_to_window(p->mlx, p->win.ptr, black.ptr, 0, 0);
-		end = ft_new_sprite(p->mlx, "src/end.xpm");
-		mlx_put_image_to_window(p->mlx, p->win.ptr, end.ptr, 0, 0);
-	}
+	return (0);
 }
 
 int	event(int key, t_program *p)
 {
-	char		next_field;
-
+	if (countc(p->map, 'E') == 0)
+		mlx_loop_hook(p->mlx, ft_update, p);
 	if (key == 53)
 	{
 		free_splits(p->map);
 		exit (0);
 	}
 	if (key == 13)
-	{
-		next_field = check_next(p, 'W');
-		apply_w(p, next_field);
-	}
+		apply_w(p, check_next(p, 'W'));
 	if (key == 0)
-	{
-		next_field = check_next(p, 'A');
-		apply_a(p, next_field);
-	}
+		apply_a(p, check_next(p, 'A'));
 	if (key == 1)
-	{
-		next_field = check_next(p, 'S');
-		apply_s(p, next_field);
-	}
+		apply_s(p, check_next(p, 'S'));
 	if (key == 2)
-	{
-		next_field = check_next(p, 'D');
-		apply_d(p, next_field);
-	}
+		apply_d(p, check_next(p, 'D'));
 	return (0);
 }
 
