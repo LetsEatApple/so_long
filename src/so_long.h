@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:12:39 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 01:24:45 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:30:30 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			check_path(char **map);
 void		add_node(t_queue **top, t_queue *new);
 t_queue		*newnode(int y, int x, char c);
 void		clearqueue(t_queue **top);
-int			ft_close(t_program *p);
+int			ft_close();
 t_window	ft_new_window(t_program p, char *name);
 t_image		ft_new_image(void *mlx, int width, int height);
 t_image		ft_new_sprite(void *mlx, char *path);

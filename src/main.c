@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:42:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 01:25:52 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:25:23 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ t_vector	get_mapsize(char **map)
 	return (map_size);
 }
 
-t_program	collect_data(t_program p, char **map)
+t_program	collect_data(char **map)
 {
+	t_program p;
+
 	p.mlx = mlx_init();
 	p.win_size = get_mapsize(map);
 	p.map = map;
@@ -84,10 +86,7 @@ t_program	collect_data(t_program p, char **map)
 int	main(int argc, char **argv)
 {
 	char		**map;
-	int			fd;
 	t_program	pro;
-	int			x;
-	int			y;
 
 	if (argc != 2)
 		return (0);
@@ -98,7 +97,7 @@ int	main(int argc, char **argv)
 	}
 	map = get_map(argv[1]);
 	check_input(map);
-	pro = collect_data(pro, map);
+	pro = collect_data(map);
 	generate_map(pro);
 	call_event(pro);
 	mlx_loop(pro.mlx);

@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:36:57 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 11:47:52 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:25:38 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ t_queue	*get_path(char **map)
 	t_queue			*current;
 	t_surrogates	neighbor;
 	t_position		p;
-	int				c;
 
 	p = get_position(map, 'P');
 	q = newnode(p.y, p.x, p.c);

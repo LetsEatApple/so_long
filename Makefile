@@ -21,7 +21,7 @@ NAME = so_long
 all: $(NAME)
 
 %.o: %.c
-	$(CC) -Imlx -c $< -o $@
+	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(MAKE) -C ./libft

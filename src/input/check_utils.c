@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:38:39 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 01:24:16 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:28:42 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ t_position	get_position(char **map, char c)
 	t_position	comp;
 
 	y = 0;
+	comp.x = 0;
+	comp.y = 0;
+	comp.c = 'N';
 	while (map[y] != 0)
 	{
 		x = 0;

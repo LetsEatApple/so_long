@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/trungnguyen/Documents/42Lea/SoLong/so_long",
-      "program": "/Users/trungnguyen/Documents/42Lea/SoLong/so_long/build/Debug/outDebug"
+      "cwd": "/Users/trungnguyen/Documents/42Lea/SoLong/so_long/src",
+      "program": "/Users/trungnguyen/Documents/42Lea/SoLong/so_long/src/build/Debug/outDebug"
     }
   ]
 }

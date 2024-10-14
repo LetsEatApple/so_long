@@ -6,14 +6,14 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:37:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/13 18:37:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:30:02 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 //free_splits(p->map);
-int	ft_close(t_program *p)
+int	ft_close()
 {
 	exit(0);
 }
