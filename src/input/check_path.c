@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:36:57 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 01:26:14 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:47:52 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	check_surrogates(t_queue **q, t_surrogates neighbor)
 	}
 	return (count);
 } */
-/* void	print_queue(t_queue *q)
+
+ void	print_queue(t_queue *q)
 {
 	t_queue *ptr;
 
@@ -100,7 +101,7 @@ void	check_surrogates(t_queue **q, t_surrogates neighbor)
 		printf("queue: %c\n", ptr->c);
 		ptr = ptr->next;
 	}
-} */
+}
 
 t_queue	*get_path(char **map)
 {
@@ -108,17 +109,19 @@ t_queue	*get_path(char **map)
 	t_queue			*current;
 	t_surrogates	neighbor;
 	t_position		p;
+	int				c;
 
 	p = get_position(map, 'P');
 	q = newnode(p.y, p.x, p.c);
 	current = q;
 	while (current != NULL)
 	{
-		if (current -> c == 'E')
-			current = current -> next;
 		neighbor = get_surrogates(map, current);
 		check_surrogates(&q, neighbor);
+		print_queue(q);
 		current = current -> next;
+		if (current && current -> c == 'E')
+			current = current -> next;
 	}
 	return (q);
 }
