@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:42:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 12:25:23 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:21:37 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_program	collect_data(char **map)
 	p.map = map;
 	p.counter = 0;
 	p.win = ft_new_window(p, "So Long");
-	p.sp.wall = ft_new_sprite(p.mlx, "src/textures/block.xpm");
-	p.sp.space = ft_new_sprite(p.mlx, "src/textures/space.xpm");
+	p.sp.wall = ft_new_sprite(p.mlx, "src/textures/block_black.xpm");
+	p.sp.space = ft_new_sprite(p.mlx, "src/textures/space_black.xpm");
 	p.sp.exit = ft_new_sprite(p.mlx, "src/textures/rocket.xpm");
 	p.sp.coin = ft_new_sprite(p.mlx, "src/textures/coin.xpm");
 	p.sp.monke = ft_new_sprite(p.mlx, "src/textures/monke.xpm");
@@ -76,13 +76,13 @@ t_program	collect_data(char **map)
 	return (p);
 }
 
-/* int	get_keycode(int keycode, void *param)
+/* int	get_keycode(int keycode)
 {
 	printf("Key pressed: %d\n", keycode);
 	return (0);
 } */
-
 // mlx_key_hook(pro.win.ptr, get_keycode, NULL); -> print the keycode
+
 int	main(int argc, char **argv)
 {
 	char		**map;

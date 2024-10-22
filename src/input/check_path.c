@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:36:57 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 12:25:38 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:17:09 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	check_surrogates(t_queue **q, t_surrogates neighbor)
 	return (count);
 } */
 
- void	print_queue(t_queue *q)
+/*  void	print_queue(t_queue *q)
 {
 	t_queue *ptr;
 
@@ -101,7 +101,7 @@ void	check_surrogates(t_queue **q, t_surrogates neighbor)
 		printf("queue: %c\n", ptr->c);
 		ptr = ptr->next;
 	}
-}
+} */
 
 t_queue	*get_path(char **map)
 {
@@ -117,7 +117,6 @@ t_queue	*get_path(char **map)
 	{
 		neighbor = get_surrogates(map, current);
 		check_surrogates(&q, neighbor);
-		print_queue(q);
 		current = current -> next;
 		if (current && current -> c == 'E')
 			current = current -> next;

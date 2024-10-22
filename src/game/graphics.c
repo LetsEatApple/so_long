@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:37:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 12:30:02 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:26:12 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 //free_splits(p->map);
-int	ft_close()
+int	ft_close(t_program *p)
 {
+	free(p->map);
 	exit(0);
 }
 

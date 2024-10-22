@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:00:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/13 19:23:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:44:24 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+//for mac:
+// W = 13
+// A = 0
+// S = 1
+// D = 2
+// ESC = 53
 
 int	ft_update(t_program *p)
 {
@@ -36,18 +43,18 @@ int	event(int key, t_program *p)
 {
 	if (countc(p->map, 'E') == 0)
 		mlx_loop_hook(p->mlx, ft_update, p);
-	if (key == 53)
+	if (key == 65307)
 	{
 		free_splits(p->map);
 		exit (0);
 	}
-	if (key == 13)
+	if (key == 119)
 		apply_w(p, check_next(p, 'W'));
-	if (key == 0)
+	if (key == 97)
 		apply_a(p, check_next(p, 'A'));
-	if (key == 1)
+	if (key == 115)
 		apply_s(p, check_next(p, 'S'));
-	if (key == 2)
+	if (key == 100)
 		apply_d(p, check_next(p, 'D'));
 	return (0);
 }
