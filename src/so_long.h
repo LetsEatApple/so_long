@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:12:39 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/16 18:00:07 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:49:52 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ typedef struct s_sprite
 	t_image	end;
 	t_image	end_up;
 	t_image	mv;
+	t_image	black;
 }	t_sprite;
+
 typedef struct s_program
 {
 	void		*mlx;
@@ -128,5 +130,6 @@ void		apply_w(t_program *p, char next_field);
 void		apply_a(t_program *p, char next_field);
 void		apply_s(t_program *p, char next_field);
 void		apply_d(t_program *p, char next_field);
+int			destroy_game(t_program *pro);
 
 #endif

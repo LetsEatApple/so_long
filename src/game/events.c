@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:00:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/22 13:44:24 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:51:57 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@
 int	ft_update(t_program *p)
 {
 	static int	frame;
-	t_image		black;
 	t_vector	pos;
 
-	black = ft_new_image(p->mlx, p->win_size.x, p->win_size.y);
+	p->sp.black = ft_new_image(p->mlx, p->win_size.x, p->win_size.y);
 	pos.x = (p->win_size.x / 2) - (p->sp.end_up.size.x / 2);
 	pos.y = (p->win_size.y / 2) - (p->sp.end_up.size.y / 2);
-	mlx_put_image_to_window(p->mlx, p->win.ptr, black.ptr, 0, 0);
+	mlx_put_image_to_window(p->mlx, p->win.ptr, p->sp.black.ptr, 0, 0);
 	frame++;
 	mlx_put_image_to_window(p->mlx, p->win.ptr, p->sp.end_up.ptr, pos.x, pos.y);
 	if (frame >= ANIMATION_FRAMES)
@@ -39,15 +38,35 @@ int	ft_update(t_program *p)
 	return (0);
 }
 
+int destroy_game(t_program *pro)
+{
+    mlx_destroy_image(pro->mlx, pro->sp.monke.ptr);
+    mlx_destroy_image(pro->mlx, pro->sp.space.ptr);
+    mlx_destroy_image(pro->mlx, pro->sp.wall.ptr);
+    mlx_destroy_image(pro->mlx, pro->sp.coin.ptr);
+    mlx_destroy_image(pro->mlx, pro->sp.exit.ptr);
+    mlx_destroy_image(pro->mlx, pro->sp.end.ptr);
+	mlx_destroy_image(pro->mlx, pro->sp.end_up.ptr);
+	mlx_destroy_image(pro->mlx, pro->sp.mv.ptr);
+    mlx_destroy_image(pro->mlx, pro->sp.end_up.ptr);
+	mlx_destroy_image(pro->mlx, pro->sp.black.ptr);
+	mlx_destroy_window(pro->mlx, pro->win.ptr);
+	mlx_destroy_display(pro->mlx);
+    free(pro->mlx);
+    free_splits(pro->map);
+    exit (0);
+}
+
 int	event(int key, t_program *p)
 {
 	if (countc(p->map, 'E') == 0)
 		mlx_loop_hook(p->mlx, ft_update, p);
 	if (key == 65307)
-	{
+		destroy_game(p);
+	/* {
 		free_splits(p->map);
 		exit (0);
-	}
+	} */
 	if (key == 119)
 		apply_w(p, check_next(p, 'W'));
 	if (key == 97)

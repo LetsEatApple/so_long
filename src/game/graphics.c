@@ -6,18 +6,17 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:37:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/22 17:26:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:48:29 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 //free_splits(p->map);
-int	ft_close(t_program *p)
+/* int	ft_close(t_program *p)
 {
-	free(p->map);
-	exit(0);
-}
+	destroy_game(p);
+} */
 
 t_window	ft_new_window(t_program p, char *name)
 {
@@ -26,7 +25,7 @@ t_window	ft_new_window(t_program p, char *name)
 	window.ptr = mlx_new_window(p.mlx, p.win_size.x, p.win_size.y, name);
 	window.size.x = p.win_size.x;
 	window.size.y = p.win_size.y;
-	mlx_hook(window.ptr, 17, 0, ft_close, &p);
+	mlx_hook(window.ptr, 17, 0, destroy_game, &p);
 	return (window);
 }
 
