@@ -49,31 +49,30 @@ t_vector	get_mapsize(char **map)
 	return (map_size);
 }
 
-t_program	collect_data(char **map)
+void	collect_data(char **map, t_program *p)
 {
-	t_program p;
-
-	p.mlx = mlx_init();
-	p.win_size = get_mapsize(map);
-	p.map = map;
-	p.counter = 0;
-	p.win = ft_new_window(p, "So Long");
-	p.sp.wall = ft_new_sprite(p.mlx, "src/textures/block_black.xpm");
-	p.sp.space = ft_new_sprite(p.mlx, "src/textures/space_black.xpm");
-	p.sp.exit = ft_new_sprite(p.mlx, "src/textures/rocket.xpm");
-	p.sp.coin = ft_new_sprite(p.mlx, "src/textures/coin.xpm");
-	p.sp.monke = ft_new_sprite(p.mlx, "src/textures/monke.xpm");
-	if (p.win_size.x < 350 || p.win_size.y < 300)
+	p->win_size = get_mapsize(map);
+	p->map = map;
+	p->counter = 0;
+	p->win = ft_new_window(p, "So Long");
+	p->sp.wall = ft_new_sprite(p->mlx, "src/textures/block_black.xpm");
+	mlx_destroy_image(p->mlx, p->sp.wall.ptr);
+	mlx_loop_end(p->mlx);
+	
+	p->sp.space = ft_new_sprite(p->mlx, "src/textures/space_black.xpm");
+	p->sp.exit = ft_new_sprite(p->mlx, "src/textures/rocket.xpm");
+	p->sp.coin = ft_new_sprite(p->mlx, "src/textures/coin.xpm");
+	p->sp.monke = ft_new_sprite(p->mlx, "src/textures/monke.xpm");
+	/* if (p->win_size.x < 350 || p->win_size.y < 300)
 	{
-		p.sp.end_up = ft_new_sprite(p.mlx, "src/textures/end_up_mini.xpm");
-		p.sp.mv = ft_new_sprite(p.mlx, "src/textures/end_down_mini.xpm");
+		p->sp.end_up = ft_new_sprite(p->mlx, "src/textures/end_up_mini.xpm");
+		p->sp.mv = ft_new_sprite(p->mlx, "src/textures/end_down_mini.xpm");
 	}
 	else
 	{
-		p.sp.end_up = ft_new_sprite(p.mlx, "src/textures/end_up.xpm");
-		p.sp.mv = ft_new_sprite(p.mlx, "src/textures/end_down.xpm");
-	}
-	return (p);
+		p->sp.end_up = ft_new_sprite(p->mlx, "src/textures/end_up.xpm");
+		p->sp.mv = ft_new_sprite(p->mlx, "src/textures/end_down.xpm");
+	} */
 }
 
 /* int	get_keycode(int keycode)
@@ -97,11 +96,17 @@ int	main(int argc, char **argv)
 	}
 	map = get_map(argv[1]);
 	check_input(map);
-	pro = collect_data(map);
+	pro.mlx = mlx_init();
+	collect_data(map, &pro);
 	generate_map(pro);
-	call_event(pro);
+	mlx_key_hook(pro.win.ptr, event, &pro); //call_event(pro);
 	mlx_loop(pro.mlx);
 	free_splits(map);
+	mlx_destroy_window(pro.mlx, pro.win.ptr);
+	free(pro.mlx);
+	exit(1);
+	destroy_game(&pro);
+	//free_splits(map);
 	return (0);
 }
 

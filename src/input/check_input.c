@@ -21,7 +21,7 @@ int	check_if_file(char *filename)
 	extension = ".ber";
 	j = 4;
 	i = ft_strlen(filename);
-	while (i > 0 & j > 0)
+	while (i > 0 && j > 0)
 	{
 		if (extension[j -1] != filename[i -1])
 			return (false);
@@ -72,7 +72,13 @@ char	**get_map(char *file)
 	}
 	strmap = malloc(size +1);
 	fd = open(file, O_RDONLY);
-	read(fd, strmap, size);
+	if (fd < 0 || read(fd, strmap, size) < 0)
+	{
+		free(strmap);
+		close(fd);
+		exit(1);
+	}
+	strmap[size] = '\0';
 	close(fd);
 	map = ft_split(strmap, '\n');
 	free(strmap);

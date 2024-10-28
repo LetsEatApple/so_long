@@ -12,20 +12,21 @@
 
 #include "../so_long.h"
 
-//free_splits(p->map);
-/* int	ft_close(t_program *p)
-{
-	destroy_game(p);
-} */
 
-t_window	ft_new_window(t_program p, char *name)
+int	ft_close(t_program *p)
+{
+	mlx_loop_end(p->mlx);
+	return (0);
+}
+
+t_window	ft_new_window(t_program *p, char *name)
 {
 	t_window	window;
 
-	window.ptr = mlx_new_window(p.mlx, p.win_size.x, p.win_size.y, name);
-	window.size.x = p.win_size.x;
-	window.size.y = p.win_size.y;
-	mlx_hook(window.ptr, 17, 0, destroy_game, &p);
+	window.ptr = mlx_new_window(p->mlx, p->win_size.x, p->win_size.y, name);
+	window.size.x = p->win_size.x;
+	window.size.y = p->win_size.y;
+	mlx_hook(window.ptr, 17, 0, ft_close, &p);
 	return (window);
 }
 

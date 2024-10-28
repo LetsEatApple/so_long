@@ -117,7 +117,7 @@ void		add_node(t_queue **top, t_queue *new);
 t_queue		*newnode(int y, int x, char c);
 void		clearqueue(t_queue **top);
 int			ft_close();
-t_window	ft_new_window(t_program p, char *name);
+t_window	ft_new_window(t_program *p, char *name);
 t_image		ft_new_image(void *mlx, int width, int height);
 t_image		ft_new_sprite(void *mlx, char *path);
 char		check_next(t_program *p, char key);

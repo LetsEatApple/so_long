@@ -19,7 +19,7 @@
 // D = 2
 // ESC = 53
 
-int	ft_update(t_program *p)
+/* int	ft_update(t_program *p)
 {
 	static int	frame;
 	t_vector	pos;
@@ -36,34 +36,44 @@ int	ft_update(t_program *p)
 		frame = 0;
 	}
 	return (0);
-}
+} */
 
 int destroy_game(t_program *pro)
 {
     mlx_destroy_image(pro->mlx, pro->sp.monke.ptr);
+	printf("%p\n",(*pro).sp.monke.ptr);
     mlx_destroy_image(pro->mlx, pro->sp.space.ptr);
+		printf("%p\n",pro->sp.space.ptr);
     mlx_destroy_image(pro->mlx, pro->sp.wall.ptr);
+		printf("%p\n",pro->sp.wall.ptr);
     mlx_destroy_image(pro->mlx, pro->sp.coin.ptr);
+		printf("%p\n",pro->sp.coin.ptr);
     mlx_destroy_image(pro->mlx, pro->sp.exit.ptr);
+		printf("%p\n",pro->sp.exit.ptr);
     mlx_destroy_image(pro->mlx, pro->sp.end.ptr);
-	mlx_destroy_image(pro->mlx, pro->sp.end_up.ptr);
+		printf("%p\n",pro->sp.end.ptr);
+/* 	mlx_destroy_image(pro->mlx, pro->sp.end_up.ptr);
 	mlx_destroy_image(pro->mlx, pro->sp.mv.ptr);
-    mlx_destroy_image(pro->mlx, pro->sp.end_up.ptr);
-	mlx_destroy_image(pro->mlx, pro->sp.black.ptr);
+	mlx_destroy_image(pro->mlx, pro->sp.black.ptr); */
+	//mlx_clear_window(pro->mlx, pro->win.ptr);
 	mlx_destroy_window(pro->mlx, pro->win.ptr);
 	mlx_destroy_display(pro->mlx);
     free(pro->mlx);
     free_splits(pro->map);
-    exit (0);
+    return (0);
 }
 
 int	event(int key, t_program *p)
 {
-	if (countc(p->map, 'E') == 0)
-		mlx_loop_hook(p->mlx, ft_update, p);
+	/* if (countc(p->map, 'E') == 0)
+		mlx_loop_hook(p->mlx, ft_update, p); */
 	if (key == 65307)
-		destroy_game(p);
+	{
+		mlx_loop_end(p->mlx);
+		return (0);
+	}
 	/* {
+		
 		free_splits(p->map);
 		exit (0);
 	} */
@@ -78,7 +88,3 @@ int	event(int key, t_program *p)
 	return (0);
 }
 
-void	call_event(t_program p)
-{
-	mlx_key_hook(p.win.ptr, event, &p);
-}
