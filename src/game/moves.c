@@ -3,139 +3,139 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:07:38 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/22 13:42:41 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:08:36 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-char	check_next(t_program *p, char key)
+char	check_next(t_pro *game, char key)
 {
-	t_position	player;
+	t_position	pos;
 
-	player = get_position(p->map, 'P');
+	pos = get_position(game->map, 'P');
 	if (key == 'W')
-		return (p->map[player.y -1][player.x]);
+		return (game->map[pos.y -1][pos.x]);
 	if (key == 'A')
-		return (p->map[player.y][player.x -1]);
+		return (game->map[pos.y][pos.x -1]);
 	if (key == 'S')
-		return (p->map[player.y +1][player.x]);
+		return (game->map[pos.y +1][pos.x]);
 	if (key == 'D')
-		return (p->map[player.y][player.x +1]);
+		return (game->map[pos.y][pos.x +1]);
 	return ('N');
 }
 
-void	apply_w(t_program *p, char next_field)
+void	apply_w(t_pro *game, char next_field)
 {
-	t_position	player;
+	t_position	pos;
 	int			c_left;
 
-	if (countc(p->map, 'E') == 0)
+	if (countc(game->map, 'E') == 0)
 		return ;
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
+	pos = get_position(game->map, 'P');
+	c_left = countc(game->map, 'C');
 	if (next_field != '1' && next_field != 'E')
 	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y -1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y -1][pos.x] = 'P';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		generate_map(game);
 	}
 	if (next_field == 'E' && c_left == 0)
 	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/textures/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y -1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y -1][pos.x] = 'X';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		ft_printf("Congrats! You made it!\n");
+		generate_map(game);
 	}
 }
 
-void	apply_a(t_program *p, char next_field)
+void	apply_a(t_pro *game, char next_field)
 {
-	t_position	player;
+	t_position	pos;
 	int			c_left;
 
-	if (countc(p->map, 'E') == 0)
+	if (countc(game->map, 'E') == 0)
 		return ;
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
+	pos = get_position(game->map, 'P');
+	c_left = countc(game->map, 'C');
 	if (next_field != '1' && next_field != 'E')
 	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x -1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y][pos.x -1] = 'P';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		generate_map(game);
 	}
 	if (next_field == 'E' && c_left == 0)
 	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/textures/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x -1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y][pos.x -1] = 'X';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		ft_printf("Congrats! You made it!\n");
+		generate_map(game);
 	}
 }
 
-void	apply_s(t_program *p, char next_field)
+void	apply_s(t_pro *game, char next_field)
 {
-	t_position	player;
+	t_position	pos;
 	int			c_left;
 
-	if (countc(p->map, 'E') == 0)
+	if (countc(game->map, 'E') == 0)
 		return ;
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
+	pos = get_position(game->map, 'P');
+	c_left = countc(game->map, 'C');
 	if (next_field != '1' && next_field != 'E')
 	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y +1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y +1][pos.x] = 'P';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		generate_map(game);
 	}
 	if (next_field == 'E' && c_left == 0)
 	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/textures/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y +1][player.x] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y +1][pos.x] = 'X';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		ft_printf("Congrats! You made it!\n");
+		generate_map(game);
 	}
 }
 
-void	apply_d(t_program *p, char next_field)
+void	apply_d(t_pro *game, char next_field)
 {
-	t_position	player;
+	t_position	pos;
 	int			c_left;
 
-	if (countc(p->map, 'E') == 0)
+	if (countc(game->map, 'E') == 0)
 		return ;
-	player = get_position(p->map, 'P');
-	c_left = countc(p->map, 'C');
+	pos = get_position(game->map, 'P');
+	c_left = countc(game->map, 'C');
 	if (next_field != '1' && next_field != 'E')
 	{
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x +1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y][pos.x +1] = 'P';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		generate_map(game);
 	}
 	if (next_field == 'E' && c_left == 0)
 	{
-		p->sp.monke = ft_new_sprite(p->mlx, "src/textures/exit.xpm");
-		p->map[player.y][player.x] = '0';
-		p->map[player.y][player.x +1] = 'P';
-		p->counter = p->counter +1;
-		ft_printf("%d\n", p->counter);
-		generate_map(*p);
+		game->map[pos.y][pos.x] = '0';
+		game->map[pos.y][pos.x +1] = 'X';
+		game->counter = game->counter +1;
+		ft_printf("%d\n", game->counter);
+		ft_printf("Congrats! You made it!\n");
+		generate_map(game);
 	}
 }

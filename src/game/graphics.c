@@ -3,78 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:37:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/23 17:48:29 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:56:25 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-
-int	ft_close(t_program *p)
+void	get_win_size(t_pro *game)
 {
-	mlx_loop_end(p->mlx);
-	return (0);
+	t_vector	size;
+
+	size.x = ft_strlen(game->map[0]) * 50;
+	size.y = get_arrsize(game->map) * 50;
+	game->size = size;
 }
 
-t_window	ft_new_window(t_program *p, char *name)
+void	get_sprites(t_pro *g)
 {
-	t_window	window;
+	int	w;
+	int	h;
 
-	window.ptr = mlx_new_window(p->mlx, p->win_size.x, p->win_size.y, name);
-	window.size.x = p->win_size.x;
-	window.size.y = p->win_size.y;
-	mlx_hook(window.ptr, 17, 0, ft_close, &p);
-	return (window);
+	g->space = mlx_xpm_file_to_image(g->mlx, "src/textures/spaceb.xpm", &w, &h);
+	g->wall = mlx_xpm_file_to_image(g->mlx, "src/textures/block_b.xpm", &w, &h);
+	g->monke = mlx_xpm_file_to_image(g->mlx, "src/textures/monke.xpm", &w, &h);
+	g->coin = mlx_xpm_file_to_image(g->mlx, "src/textures/coin.xpm", &w, &h);
+	g->exit = mlx_xpm_file_to_image(g->mlx, "src/textures/rocket.xpm", &w, &h);
+	g->end = mlx_xpm_file_to_image(g->mlx, "src/textures/end.xpm", &w, &h);
 }
 
-t_image	ft_new_image(void *mlx, int width, int height)
+void	destroy_sprites(t_pro *game)
 {
-	t_image	img;
-
-	img.ptr = mlx_new_image(mlx, width, height);
-	img.size.x = width;
-	img.size.y = height;
-	img.pixels = mlx_get_data_addr(img.ptr, &img.bpp, &img.l_size, &img.endian);
-	return (img);
+	if (game->space)
+		mlx_destroy_image(game->mlx, game->space);
+	if (game->wall)
+		mlx_destroy_image(game->mlx, game->wall);
+	if (game->monke)
+		mlx_destroy_image(game->mlx, game->monke);
+	if (game->coin)
+		mlx_destroy_image(game->mlx, game->coin);
+	if (game->exit)
+		mlx_destroy_image(game->mlx, game->exit);
+	if (game->end)
+		mlx_destroy_image(game->mlx, game->end);
 }
 
-t_image	ft_new_sprite(void *mlx, char *path)
+void	place_image(t_pro *g, void *img, int x, int y)
 {
-	t_image	img;
-
-	img.ptr = mlx_xpm_file_to_image(mlx, path, &img.size.x, &img.size.y);
-	img.pixels = mlx_get_data_addr(img.ptr, &img.bpp, &img.l_size, &img.endian);
-	return (img);
+	x = x * 50;
+	y = y * 50;
+	mlx_put_image_to_window(g->mlx, g->win, img, x, y);
 }
 
-void	generate_map(t_program p)
+void	generate_map(t_pro *g)
 {
-	t_vector	pos;
-	int			w;
-	int			h;
+	int	y;
+	int	x;
 
-	pos.y = 0;
-	while (p.map[pos.y])
+	y = 0;
+	while (g->map[y])
 	{
-		pos.x = 0;
-		while (p.map[pos.y][pos.x])
+		x = 0;
+		while (g->map[y][x])
 		{
-			w = pos.x * 50;
-			h = pos.y * 50;
-			mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.space.ptr, w, h);
-			if (p.map[pos.y][pos.x] == '1')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.wall.ptr, w, h);
-			if (p.map[pos.y][pos.x] == 'E')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.exit.ptr, w, h);
-			if (p.map[pos.y][pos.x] == 'C')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.coin.ptr, w, h);
-			if (p.map[pos.y][pos.x] == 'P')
-				mlx_put_image_to_window(p.mlx, p.win.ptr, p.sp.monke.ptr, w, h);
-			pos.x++;
+			if (g->map[y][x] == '0')
+				place_image(g, g->space, x, y);
+			if (g->map[y][x] == '1')
+				place_image(g, g->wall, x, y);
+			if (g->map[y][x] == 'E')
+				place_image(g, g->exit, x, y);
+			if (g->map[y][x] == 'C')
+				place_image(g, g->coin, x, y);
+			if (g->map[y][x] == 'P')
+				place_image(g, g->monke, x, y);
+			if (g->map[y][x] == 'X')
+				place_image(g, g->end, x, y);
+			x++;
 		}
-		pos.y++;
+		y++;
 	}
 }

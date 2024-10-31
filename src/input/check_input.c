@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:58:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/13 16:59:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:57:12 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,10 @@ int	get_buffer_size(const char *file)
 	return (size);
 }
 
-char	**get_map(char *file)
+void	get_map(t_pro *game, char *file)
 {
 	int		size;
 	int		fd;
-	char	**map;
 	char	*strmap;
 
 	size = get_buffer_size(file);
@@ -80,13 +79,11 @@ char	**get_map(char *file)
 	}
 	strmap[size] = '\0';
 	close(fd);
-	map = ft_split(strmap, '\n');
+	game->map = ft_split(strmap, '\n');
 	free(strmap);
-	return (map);
 }
 
-// ft_putstr_fd("Invalid input: ", 2);
-void	error_exit(char **map, char error_code)
+void	error_exit(t_pro *game, char error_code)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (error_code == 'r')
@@ -99,21 +96,21 @@ void	error_exit(char **map, char error_code)
 		ft_putstr_fd("'Map must be surrounded by walls'", 2);
 	else if (error_code == 'p')
 		ft_putstr_fd("'No valid path'", 2);
-	free_splits(map);
+	free_splits(game->map);
 	exit(0);
 }
 
-void	check_input(char **map)
+void	check_input(t_pro *game)
 {
-	if (check_if_rectangle(map) == false)
-		error_exit(map, 'r');
-	if (check_components(map) == false)
-		error_exit(map, 'i');
-	if (check_ammount(map) == false)
-		error_exit(map, 'c');
-	if (check_wall(map) == false)
-		error_exit(map, 'w');
-	if (check_path(map) == false)
-		error_exit(map, 'p');
+	if (check_if_rectangle(game->map) == false)
+		error_exit(game, 'r');
+	if (check_components(game->map) == false)
+		error_exit(game, 'i');
+	if (check_ammount(game->map) == false)
+		error_exit(game, 'c');
+	if (check_wall(game->map) == false)
+		error_exit(game, 'w');
+	if (check_path(game->map) == false)
+		error_exit(game, 'p');
 	return ;
 }

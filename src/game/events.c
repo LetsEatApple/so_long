@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:00:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/23 17:51:57 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:35:50 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // D = 2
 // ESC = 53
 
-/* int	ft_update(t_program *p)
+/* int	ft_update(t_pro *p)
 {
 	static int	frame;
 	t_vector	pos;
@@ -38,53 +38,20 @@
 	return (0);
 } */
 
-int destroy_game(t_program *pro)
+int	event(int key, t_pro *game)
 {
-    mlx_destroy_image(pro->mlx, pro->sp.monke.ptr);
-	printf("%p\n",(*pro).sp.monke.ptr);
-    mlx_destroy_image(pro->mlx, pro->sp.space.ptr);
-		printf("%p\n",pro->sp.space.ptr);
-    mlx_destroy_image(pro->mlx, pro->sp.wall.ptr);
-		printf("%p\n",pro->sp.wall.ptr);
-    mlx_destroy_image(pro->mlx, pro->sp.coin.ptr);
-		printf("%p\n",pro->sp.coin.ptr);
-    mlx_destroy_image(pro->mlx, pro->sp.exit.ptr);
-		printf("%p\n",pro->sp.exit.ptr);
-    mlx_destroy_image(pro->mlx, pro->sp.end.ptr);
-		printf("%p\n",pro->sp.end.ptr);
-/* 	mlx_destroy_image(pro->mlx, pro->sp.end_up.ptr);
-	mlx_destroy_image(pro->mlx, pro->sp.mv.ptr);
-	mlx_destroy_image(pro->mlx, pro->sp.black.ptr); */
-	//mlx_clear_window(pro->mlx, pro->win.ptr);
-	mlx_destroy_window(pro->mlx, pro->win.ptr);
-	mlx_destroy_display(pro->mlx);
-    free(pro->mlx);
-    free_splits(pro->map);
-    return (0);
-}
+	int	check;
 
-int	event(int key, t_program *p)
-{
-	/* if (countc(p->map, 'E') == 0)
-		mlx_loop_hook(p->mlx, ft_update, p); */
+	check = countc(game->map, 'E');
 	if (key == 65307)
-	{
-		mlx_loop_end(p->mlx);
-		return (0);
-	}
-	/* {
-		
-		free_splits(p->map);
-		exit (0);
-	} */
-	if (key == 119)
-		apply_w(p, check_next(p, 'W'));
-	if (key == 97)
-		apply_a(p, check_next(p, 'A'));
-	if (key == 115)
-		apply_s(p, check_next(p, 'S'));
-	if (key == 100)
-		apply_d(p, check_next(p, 'D'));
+		exit_loop(game);
+	if (check != 0 && key == 119)
+		apply_w(game, check_next(game, 'W'));
+	if (check != 0 && key == 97)
+		apply_a(game, check_next(game, 'A'));
+	if (check != 0 && key == 115)
+		apply_s(game, check_next(game, 'S'));
+	if (check != 0 && key == 100)
+		apply_d(game, check_next(game, 'D'));
 	return (0);
 }
-

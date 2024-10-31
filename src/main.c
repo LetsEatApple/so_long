@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:42:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/22 17:21:37 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:35:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,77 +40,45 @@ void	free_splits(char **splits)
 	free(splits);
 }
 
-t_vector	get_mapsize(char **map)
+int	exit_loop(t_pro *game)
 {
-	t_vector	map_size;
-
-	map_size.x = ft_strlen(map[0]) * 50;
-	map_size.y = get_arrsize(map) * 50;
-	return (map_size);
-}
-
-void	collect_data(char **map, t_program *p)
-{
-	p->win_size = get_mapsize(map);
-	p->map = map;
-	p->counter = 0;
-	p->win = ft_new_window(p, "So Long");
-	p->sp.wall = ft_new_sprite(p->mlx, "src/textures/block_black.xpm");
-	mlx_destroy_image(p->mlx, p->sp.wall.ptr);
-	mlx_loop_end(p->mlx);
-	
-	p->sp.space = ft_new_sprite(p->mlx, "src/textures/space_black.xpm");
-	p->sp.exit = ft_new_sprite(p->mlx, "src/textures/rocket.xpm");
-	p->sp.coin = ft_new_sprite(p->mlx, "src/textures/coin.xpm");
-	p->sp.monke = ft_new_sprite(p->mlx, "src/textures/monke.xpm");
-	/* if (p->win_size.x < 350 || p->win_size.y < 300)
-	{
-		p->sp.end_up = ft_new_sprite(p->mlx, "src/textures/end_up_mini.xpm");
-		p->sp.mv = ft_new_sprite(p->mlx, "src/textures/end_down_mini.xpm");
-	}
-	else
-	{
-		p->sp.end_up = ft_new_sprite(p->mlx, "src/textures/end_up.xpm");
-		p->sp.mv = ft_new_sprite(p->mlx, "src/textures/end_down.xpm");
-	} */
-}
-
-/* int	get_keycode(int keycode)
-{
-	printf("Key pressed: %d\n", keycode);
+	mlx_loop_end(game->mlx);
 	return (0);
-} */
-// mlx_key_hook(pro.win.ptr, get_keycode, NULL); -> print the keycode
+}
+
+int	exit_game(t_pro *game)
+{
+	destroy_sprites(game);
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	free_splits(game->map);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
-	char		**map;
-	t_program	pro;
+	t_pro	game;
 
 	if (argc != 2)
 		return (0);
+	(void)argv;
 	if (check_if_file(argv[1]) == false)
 	{
 		ft_putstr_fd("Error\n'no '*.ber' file passed'", 2);
 		return (0);
 	}
-	map = get_map(argv[1]);
-	check_input(map);
-	pro.mlx = mlx_init();
-	collect_data(map, &pro);
-	generate_map(pro);
-	mlx_key_hook(pro.win.ptr, event, &pro); //call_event(pro);
-	mlx_loop(pro.mlx);
-	free_splits(map);
-	mlx_destroy_window(pro.mlx, pro.win.ptr);
-	free(pro.mlx);
-	exit(1);
-	destroy_game(&pro);
-	//free_splits(map);
+	get_map(&game, argv[1]);
+	check_input(&game);
+	get_win_size(&game);
+	game.counter = 0;
+	game.mlx = mlx_init();
+	game.win = mlx_new_window(game.mlx, game.size.x, game.size.y, "So Long");
+	get_sprites(&game);
+	generate_map(&game);
+	mlx_key_hook(game.win, event, &game);
+	mlx_hook(game.win, 17, 0, exit_loop, &game);
+	mlx_loop(game.mlx);
+	exit_game(&game);
 	return (0);
 }
-
-/* if (window_size.x * 50 > 1920 || window_size.y > 1080)
-	{
-		
-	} */
