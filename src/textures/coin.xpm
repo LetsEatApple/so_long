@@ -98,7 +98,7 @@ static char *result[] = {
 ".. c #F1D28B",
 "X. c #EDCD92",
 "o. c #F0D291",
-"O. c None",
+"O. c #C4AEA1",
 /* pixels */
 "O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.",
 "O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.O.",

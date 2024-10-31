@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:37:00 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/31 17:56:25 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:37:39 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_sprites(t_pro *g)
 	int	w;
 	int	h;
 
-	g->space = mlx_xpm_file_to_image(g->mlx, "src/textures/spaceb.xpm", &w, &h);
+	g->space = mlx_xpm_file_to_image(g->mlx, "src/textures/space.xpm", &w, &h);
 	g->wall = mlx_xpm_file_to_image(g->mlx, "src/textures/block_b.xpm", &w, &h);
 	g->monke = mlx_xpm_file_to_image(g->mlx, "src/textures/monke.xpm", &w, &h);
 	g->coin = mlx_xpm_file_to_image(g->mlx, "src/textures/coin.xpm", &w, &h);

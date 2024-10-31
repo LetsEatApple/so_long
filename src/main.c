@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:42:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/31 17:35:26 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:40:09 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,3 +82,5 @@ int	main(int argc, char **argv)
 	exit_game(&game);
 	return (0);
 }
+
+//#C4AEA1
