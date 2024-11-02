@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 17:12:39 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/31 17:34:20 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/02 13:49:54 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int			exit_loop(t_pro *game);
 void		get_sprites(t_pro *g);
 void		destroy_sprites(t_pro *game);
 void		get_win_size(t_pro *game);
+int			check_newline(char *strmap);
 
 #endif

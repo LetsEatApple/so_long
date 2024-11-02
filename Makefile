@@ -34,15 +34,18 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -I/usr/include -Imlx -O3 -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(MAKE) -C ./libft
+	$(MAKE) -C ./libft --silent
+	$(MAKE) -C ./mlx --silent
 	$(CC) $(OBJ) libft/libft.a -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 
 clean:
-	$(MAKE) clean -C ./libft
+	$(MAKE) clean -C ./libft --silent
+	$(MAKE) clean -C ./mlx --silent
 	rm -f $(OBJ)
 
 fclean: clean
-	$(MAKE) fclean -C ./libft
+	$(MAKE) fclean -C ./libft --silent
+	$(MAKE) clean -C ./mlx --silent
 	rm -f $(NAME)
 
 re: fclean all

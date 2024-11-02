@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:58:10 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/05/20 01:01:10 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:37:42 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	count_strings(char const *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		while (s[i] && s[i] == c )
+		while (s[i] && s[i] == c)
 			i++;
 		if (s[i] != '\0')
 			count++;

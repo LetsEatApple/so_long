@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:36:57 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/22 17:17:09 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:02:40 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,6 @@ void	check_surrogates(t_queue **q, t_surrogates neighbor)
 		add_node(q, new);
 	}
 }
-
-/* int count_unvisited(t_queue *q)
-{
-	int count;
-	t_queue *ptr;
-
-	count = 0;
-	ptr = q;
-	while (ptr != NULL)
-	{
-		if (ptr -> v == 'N')
-			count++;
-		ptr = ptr->next;
-	}
-	return (count);
-} */
-
-/*  void	print_queue(t_queue *q)
-{
-	t_queue *ptr;
-
-	ptr = q;
-	while (ptr != NULL)
-	{
-		printf("queue: %c\n", ptr->c);
-		ptr = ptr->next;
-	}
-} */
 
 t_queue	*get_path(char **map)
 {

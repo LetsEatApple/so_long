@@ -6,32 +6,34 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:38:39 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/14 12:28:42 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/02 13:44:15 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	countc(char **map, char c)
+int	check_newline(char *strmap)
 {
 	int	i;
-	int	j;
 	int	count;
 
-	count = 0;
 	i = 0;
-	while (map[i] != 0)
+	count = 0;
+	if (strmap[i] && strmap[0] == '\n')
+		return (false);
+	while (strmap[i])
 	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == c)
-				count++;
-			j++;
-		}
+		if (count == 2)
+			return (false);
+		if (strmap[i +1] == '\0' && strmap[i] == '\n')
+			return (false);
+		if (strmap[i] == '\n')
+			count ++;
+		else
+			count = 0;
 		i++;
 	}
-	return (count);
+	return (true);
 }
 
 t_position	get_position(char **map, char c)

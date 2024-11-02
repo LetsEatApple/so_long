@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:58:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/31 17:57:12 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:04:41 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	get_map(t_pro *game, char *file)
 	char	*strmap;
 
 	size = get_buffer_size(file);
-	if (size < 0)
+	if (size <= 0)
 	{
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Error\n'File is not valid'\n", 2);
 		exit (0);
 	}
 	strmap = malloc(size +1);
@@ -79,6 +79,11 @@ void	get_map(t_pro *game, char *file)
 	}
 	strmap[size] = '\0';
 	close(fd);
+	if (check_newline(strmap) == false)
+	{
+		free(strmap);
+		error_exit(game, 'r');
+	}
 	game->map = ft_split(strmap, '\n');
 	free(strmap);
 }
@@ -86,17 +91,22 @@ void	get_map(t_pro *game, char *file)
 void	error_exit(t_pro *game, char error_code)
 {
 	ft_putstr_fd("Error\n", 2);
-	if (error_code == 'r')
-		ft_putstr_fd("'Map must be rectangular'", 2);
+	if (error_code == 'f')
+		ft_putstr_fd("'No '*.ber' file passed'\n", 2);
+	else if (error_code == 'r')
+		ft_putstr_fd("'Map must be rectangular'\n", 2);
 	else if (error_code == 'i')
-		ft_putstr_fd("'Invalid component was passed'", 2);
+		ft_putstr_fd("'Invalid component was passed'\n", 2);
 	else if (error_code == 'c')
-		ft_putstr_fd("'Too few/many components'", 2);
+		ft_putstr_fd("'Too few/many components'\n", 2);
 	else if (error_code == 'w')
-		ft_putstr_fd("'Map must be surrounded by walls'", 2);
+		ft_putstr_fd("'Map must be surrounded by walls'\n", 2);
 	else if (error_code == 'p')
-		ft_putstr_fd("'No valid path'", 2);
-	free_splits(game->map);
+		ft_putstr_fd("'No valid path'\n", 2);
+	else if (error_code == 'b')
+		ft_putstr_fd("'Map is too big'\n", 2);
+	if (game->map)
+		free_splits(game->map);
 	exit(0);
 }
 
@@ -112,5 +122,7 @@ void	check_input(t_pro *game)
 		error_exit(game, 'w');
 	if (check_path(game->map) == false)
 		error_exit(game, 'p');
+	if (game->size.x > 1920 || game->size.y > 1080)
+		error_exit(game, 'b');
 	return ;
 }

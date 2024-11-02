@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:00:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/31 17:35:50 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/02 13:44:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,28 @@
 	}
 	return (0);
 } */
+
+int	countc(char **map, char c)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (map[i] != 0)
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == c)
+				count++;
+			j++;
+		}
+		i++;
+	}
+	return (count);
+}
 
 int	event(int key, t_pro *game)
 {

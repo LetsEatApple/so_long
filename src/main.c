@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:42:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/10/31 18:40:09 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:06:48 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,19 @@ int	main(int argc, char **argv)
 	t_pro	game;
 
 	if (argc != 2)
+	{
+		ft_putstr_fd("Error\n'too few/many arguments'", 2);
 		return (0);
-	(void)argv;
+	}
+	ft_memset(&game, 0, sizeof(t_pro));
 	if (check_if_file(argv[1]) == false)
 	{
 		ft_putstr_fd("Error\n'no '*.ber' file passed'", 2);
 		return (0);
 	}
 	get_map(&game, argv[1]);
-	check_input(&game);
 	get_win_size(&game);
+	check_input(&game);
 	game.counter = 0;
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, game.size.x, game.size.y, "So Long");
@@ -82,5 +85,3 @@ int	main(int argc, char **argv)
 	exit_game(&game);
 	return (0);
 }
-
-//#C4AEA1
