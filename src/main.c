@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:42:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/11/02 14:06:48 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:26:26 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,13 @@ void	free_splits(char **splits)
 	free(splits);
 }
 
-int	exit_loop(t_pro *game)
+int	ft_exit(char exit_code)
 {
-	mlx_loop_end(game->mlx);
-	return (0);
-}
-
-int	exit_game(t_pro *game)
-{
-	destroy_sprites(game);
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	free_splits(game->map);
-	return (0);
+	if (exit_code == 'a')
+		ft_putstr_fd("Error\n'Too few/many arguments'\n", 2);
+	if (exit_code == 'f')
+		ft_putstr_fd("Error\n'File is not valid'\n", 2);
+	exit (1);
 }
 
 int	main(int argc, char **argv)
@@ -61,14 +54,11 @@ int	main(int argc, char **argv)
 	t_pro	game;
 
 	if (argc != 2)
-	{
-		ft_putstr_fd("Error\n'too few/many arguments'", 2);
-		return (0);
-	}
+		ft_exit('a');
 	ft_memset(&game, 0, sizeof(t_pro));
 	if (check_if_file(argv[1]) == false)
 	{
-		ft_putstr_fd("Error\n'no '*.ber' file passed'", 2);
+		ft_putstr_fd("Error\n'no '*.ber' file passed'\n", 2);
 		return (0);
 	}
 	get_map(&game, argv[1]);

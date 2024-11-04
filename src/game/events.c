@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:00:06 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/11/02 13:44:26 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:24:15 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@
 	}
 	return (0);
 } */
+
+int	exit_loop(t_pro *game)
+{
+	mlx_loop_end(game->mlx);
+	return (0);
+}
+
+int	exit_game(t_pro *game)
+{
+	destroy_sprites(game);
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	free_splits(game->map);
+	return (0);
+}
 
 int	countc(char **map, char c)
 {

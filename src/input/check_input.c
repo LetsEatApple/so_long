@@ -6,7 +6,7 @@
 /*   By: lhagemos <lhagemos@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:58:48 by lhagemos          #+#    #+#             */
-/*   Updated: 2024/11/02 14:04:41 by lhagemos         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:22:39 by lhagemos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ void	get_map(t_pro *game, char *file)
 
 	size = get_buffer_size(file);
 	if (size <= 0)
-	{
-		ft_putstr_fd("Error\n'File is not valid'\n", 2);
-		exit (0);
-	}
+		ft_exit('f');
 	strmap = malloc(size +1);
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || read(fd, strmap, size) < 0)
